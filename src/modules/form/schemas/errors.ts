@@ -4,7 +4,6 @@ export const FormFirstStepErrorsCodes = {
 	},
 	phone: {
 		required: "form.phone.required",
-		max: "form.phone.maxLength",
 		format: "form.phone.format",
 	},
 	from: {

@@ -9,22 +9,30 @@ import {
 	type FirtStepFormOptions,
 	type SecondStepFormOptions,
 } from "../../schemas";
+import { formatPhoneNumber } from "../../utils/format-phone-number";
+import { transformCargoTypeValue } from "../../utils/transform-cargo-type-value";
 
-const transformCargoTypeValue = ({ type }: { type: CargoType }): string => {
-	switch (type) {
-		case "document": {
-			return "Документы";
-		}
-		case "fragile": {
-			return "Хрупкое";
-		}
-		case "regular": {
-			return "Обычное";
-		}
+type CommonKey = keyof (FirtStepFormOptions & SecondStepFormOptions);
+
+const validateKeyValue = ({
+	key,
+	value,
+}: {
+	key: CommonKey;
+	value: string | number;
+}): string | number => {
+	if (key === "cargoType") {
+		return transformCargoTypeValue({ type: value as CargoType });
 	}
+
+	if (key === "phone") {
+		return formatPhoneNumber(value as string);
+	}
+
+	return value;
 };
 
-interface PreviousUserDataProps<
+export interface PreviousUserDataProps<
 	T extends FirtStepFormOptions | SecondStepFormOptions,
 > {
 	data?: T;
@@ -42,19 +50,13 @@ export const PreviousUserData = <
 	return (
 		<>
 			{Object.entries(data).map(([key, value]) => (
-				<FieldLabel
-					key={key}
-					label={
-						LABELS[key as keyof (FirtStepFormOptions | SecondStepFormOptions)]
-					}
-				>
+				<FieldLabel key={key} label={LABELS[key as CommonKey]}>
 					<Input
 						disabled
-						value={
-							key === "cargoType"
-								? transformCargoTypeValue({ type: value as CargoType })
-								: value
-						}
+						value={validateKeyValue({
+							key: key as CommonKey,
+							value,
+						})}
 					/>
 				</FieldLabel>
 			))}

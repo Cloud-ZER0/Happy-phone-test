@@ -22,7 +22,7 @@ export interface FormStepOne {
 export const FormStepThree = ({ className }: FormStepOne) => {
 	const { form, submitForm, clearForm } = useFormContext();
 
-	const firstStepForm = useForm({
+	const thirdStepForm = useForm({
 		mode: "onSubmit",
 		resolver: zodResolver(thirdStepFormSchema),
 	});
@@ -33,13 +33,13 @@ export const FormStepThree = ({ className }: FormStepOne) => {
 		}
 	});
 
-	const onSubmit = firstStepForm.handleSubmit(() => {
+	const onSubmit = thirdStepForm.handleSubmit(() => {
 		handleFormSubmit();
 		clearForm();
 	});
 
 	return (
-		<FormProvider {...firstStepForm}>
+		<FormProvider {...thirdStepForm}>
 			<FormControlProvider getErrorMessage={getThirdStepErrorMessage}>
 				<form
 					className={clsx("w-full flex flex-col gap-6", className)}

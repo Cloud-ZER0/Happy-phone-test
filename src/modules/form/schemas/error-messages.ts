@@ -6,10 +6,7 @@ import {
 
 export const firstStepErrorMessages = {
 	[FormFirstStepErrorsCodes.name.required]: "Заполните это поле",
-	[FormFirstStepErrorsCodes.phone.required]:
-		"Минимальная длинна номера 11 символов",
-	[FormFirstStepErrorsCodes.phone.max]:
-		"Максимальная длинна номере 15 символов",
+	[FormFirstStepErrorsCodes.phone.required]: "Это поле обязательное",
 	[FormFirstStepErrorsCodes.phone.format]:
 		"Неправильный формат номера телефона",
 	[FormFirstStepErrorsCodes.from.required]: "Заполните это поле",

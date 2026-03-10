@@ -14,6 +14,7 @@ import { LABELS } from "../../constanst";
 import { useFormContext } from "../../context/form-context.hooks";
 import { firstStepFormSchema } from "../../schemas";
 import { getFirstStepErrorMessage } from "../../schemas/error-messages";
+import { formatPhoneNumber } from "../../utils/format-phone-number";
 import { FormControls } from "../form-controls/form-controls";
 
 export interface FormStepOne {
@@ -31,13 +32,12 @@ export const FormStepOne = ({ className }: FormStepOne) => {
 				? {
 						from: form.firstStep.from,
 						name: form.firstStep.name,
-						phone: form.firstStep.phone,
+						phone: formatPhoneNumber(form.firstStep.phone),
 					}
 				: undefined,
 	});
 
 	const onSubmit = firstStepForm.handleSubmit((values) => {
-		console.log("test");
 		updateForm({ formData: { firstStep: { ...values }, currentStep: "2" } });
 	});
 
@@ -55,7 +55,12 @@ export const FormStepOne = ({ className }: FormStepOne) => {
 							<FormInput name="name" type="text" />
 						</FieldLabel>
 						<FieldLabel label={LABELS.phone}>
-							<FormInput name="phone" type="text" />
+							<FormInput
+								name="phone"
+								type="tel"
+								placeholder="+7 (___) ___-__-__"
+								isPhone
+							/>
 						</FieldLabel>
 						<FieldLabel label={LABELS.from}>
 							<FormInput name="from" type="text" />
