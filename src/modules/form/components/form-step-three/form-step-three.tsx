@@ -15,11 +15,11 @@ import { getThirdStepErrorMessage } from "../../schemas/error-messages";
 import { FormControls } from "../form-controls/form-controls";
 import { PreviousUserData } from "../previos-user-data/previous-user-data";
 
-export interface FormStepOne {
+export interface FormStepThree {
 	className?: string;
 }
 
-export const FormStepThree = ({ className }: FormStepOne) => {
+export const FormStepThree = ({ className }: FormStepThree) => {
 	const { form, submitForm, clearForm } = useFormContext();
 
 	const thirdStepForm = useForm({

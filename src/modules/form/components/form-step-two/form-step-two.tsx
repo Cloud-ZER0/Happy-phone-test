@@ -18,11 +18,11 @@ import { getSecondStepErrorMessage } from "../../schemas/error-messages";
 import { FormSecondStepErrorsCodes } from "../../schemas/errors";
 import { FormControls } from "../form-controls/form-controls";
 
-export interface FormStepOne {
+export interface FormStepTwo {
 	className?: string;
 }
 
-export const FormStepTwo = ({ className }: FormStepOne) => {
+export const FormStepTwo = ({ className }: FormStepTwo) => {
 	const { updateForm, form } = useFormContext();
 
 	const secondStepForm = useForm({
