@@ -1,6 +1,5 @@
 "use client";
 
-// eslint-disable-next-line import-x/no-unresolved
 import { zodResolver } from "@hookform/resolvers/zod";
 import { clsx } from "clsx";
 import React from "react";
@@ -38,6 +37,11 @@ export const FormStepThree = ({ className }: FormStepThree) => {
 		clearForm();
 	});
 
+	const combinedData =
+		form?.firstStep != undefined && form.secondStep != undefined
+			? { ...form.firstStep, ...form.secondStep }
+			: undefined;
+
 	return (
 		<FormProvider {...thirdStepForm}>
 			<FormControlProvider getErrorMessage={getThirdStepErrorMessage}>
@@ -48,8 +52,7 @@ export const FormStepThree = ({ className }: FormStepThree) => {
 				>
 					<h1 className="text-black text-4xl">Подтверждение</h1>
 					<div className="flex flex-col gap-4">
-						<PreviousUserData data={form?.firstStep} />
-						<PreviousUserData data={form?.secondStep} />
+						<PreviousUserData data={combinedData} />
 						<FormCheckboxInput
 							label={{
 								title: "Я согласен с условиями использования",

@@ -6,3 +6,6 @@ export interface FormOptions {
 	secondStep?: SecondStepFormOptions;
 	currentStep: "1" | "2" | "3";
 }
+
+export type FormFields = FirtStepFormOptions & SecondStepFormOptions;
+export type CommonKey = keyof FormFields;
