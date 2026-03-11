@@ -50,7 +50,12 @@ export const Search = ({
 	}, [handleClearSearch]);
 
 	return (
-		<div className={clsx("flex gap-3.5 items-center", className)}>
+		<div
+			className={clsx(
+				"flex flex-col md:flex-row gap-3.5 items-center",
+				className,
+			)}
+		>
 			<Input
 				type="text"
 				onChange={onChange}
@@ -58,8 +63,12 @@ export const Search = ({
 				value={search}
 				{...props}
 			/>
-			<div className="flex gap-1.5 items-center">
-				<Button className="w-fit" onClick={onClear}>
+			<div className="flex md:w-fit w-full gap-1.5 items-center">
+				<Button
+					variant="secondary"
+					className=" md:w-fit w-full"
+					onClick={onClear}
+				>
 					Отчистить
 				</Button>
 			</div>

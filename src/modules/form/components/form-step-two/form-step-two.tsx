@@ -66,10 +66,10 @@ export const FormStepTwo = ({ className }: FormStepTwo) => {
 					<h1 className="text-black text-[24px]">Получатель и посылка</h1>
 					<div className="flex flex-col gap-4">
 						<FieldLabel label={LABELS.recipientName}>
-							<FormInput name="reciverName" type="text" />
+							<FormInput name="recipientName" type="text" />
 						</FieldLabel>
 						<FieldLabel label={LABELS.recipientCity}>
-							<FormInput name="to" type="text" />
+							<FormInput name="recipientCity" type="text" />
 						</FieldLabel>
 						<FieldLabel label={LABELS.cargoType}>
 							<FormSelect name="cargoType">

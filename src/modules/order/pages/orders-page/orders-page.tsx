@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { Suspense } from "react";
 
 import { OrdersControls } from "@/modules/order-controls/components/orders-controls";
@@ -9,6 +10,9 @@ import { OrdersProvider } from "../../context/orders-context.provider";
 export const OrdersPage = () => {
 	return (
 		<main className="flex flex-col gap-5 items-center p-6">
+			<Link href="/" className="underline text-2xl text-black">
+				Вернуться к оформлению
+			</Link>
 			<Suspense fallback={<Loading />}>
 				<OrdersProvider>
 					<OrdersControls />

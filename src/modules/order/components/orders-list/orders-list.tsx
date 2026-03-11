@@ -18,11 +18,16 @@ export const OrdersList = ({ className }: OrdersList) => {
 	const { orders, handlers } = useOrdersContext();
 
 	if (orders.length === 0) {
-		return <h1>Not found</h1>;
+		return <h1 className="text text-center text-4xl">Ничего не найдено</h1>;
 	}
 
 	return (
-		<div className={clsx("grid grid-cols-3 gap-6", className)}>
+		<div
+			className={clsx(
+				"grid grid-cols-1 md:grid-cols-3 gap-6 w-full  bg-white max-w-310 p-6 rounded-3xl",
+				className,
+			)}
+		>
 			<RemoveOrderModalProvider>
 				{orders.map((order) => (
 					<OrderCardShort key={order.id} {...order}>

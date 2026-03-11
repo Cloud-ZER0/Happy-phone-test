@@ -1,6 +1,6 @@
 export const FormSecondStepErrorsCodes = {
 	recipientName: {
-		required: "form.name.required",
+		required: "form.recipientName.required",
 	},
 	weight: {
 		format: "form.weight.format",
@@ -11,7 +11,7 @@ export const FormSecondStepErrorsCodes = {
 		required: "form.cargo.required",
 	},
 	recipientCity: {
-		required: "form.to.required",
-		matches: "form.to.matches",
+		required: "form.recipientCity.required",
+		matches: "form.recipientCity.matches",
 	},
 } as const;

@@ -16,12 +16,23 @@ export const OrderPageContent = ({ id }: OrderPageContent) => {
 
 	if (order == undefined) {
 		return (
-			<div className="flex flex-col gap-3 w-full justify-center">
-				<h1>Заказ с id {id} не найден</h1>
-				<Link href="/">Назад</Link>
+			<div className="flex w-full flex-col gap-3 text-center justify-center">
+				<h1 className="text text-center text-4xl ">
+					Заказ с id {id} не найден
+				</h1>
+				<Link className="underline" href="/">
+					Назад
+				</Link>
 			</div>
 		);
 	}
 
-	return <OrderCardFull order={order} />;
+	return (
+		<div className="w-full flex flex-col gap-4 items-center text-center">
+			<OrderCardFull order={order} />
+			<Link className="underline" href="/">
+				Назад
+			</Link>
+		</div>
+	);
 };

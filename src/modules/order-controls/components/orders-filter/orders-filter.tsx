@@ -19,9 +19,10 @@ export const OrdersFilters = () => {
 	};
 
 	return (
-		<div className="flex flex-col gap-3">
+		<div className="w-full flex flex-col gap-4 bg-white max-w-310 p-6 rounded-3xl">
 			<span className="text text-xl text-black">Тип груза:</span>
 			<Select
+				className="md:w-fit w-full"
 				defaultValue={options.filter}
 				onChange={onChange}
 				name="cargoType"

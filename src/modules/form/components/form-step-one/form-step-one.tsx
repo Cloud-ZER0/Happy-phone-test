@@ -1,6 +1,5 @@
 "use client";
 
-// eslint-disable-next-line import-x/no-unresolved
 import { zodResolver } from "@hookform/resolvers/zod";
 import { clsx } from "clsx";
 import React from "react";
@@ -52,7 +51,7 @@ export const FormStepOne = ({ className }: FormStepOne) => {
 					<h1 className="text-black text-[24px]">Отправитель</h1>
 					<div className="flex flex-col gap-4">
 						<FieldLabel label={LABELS.senderName}>
-							<FormInput name="name" type="text" />
+							<FormInput name="senderName" type="text" />
 						</FieldLabel>
 						<FieldLabel label={LABELS.phone}>
 							<FormInput
@@ -63,7 +62,7 @@ export const FormStepOne = ({ className }: FormStepOne) => {
 							/>
 						</FieldLabel>
 						<FieldLabel label={LABELS.senderCity}>
-							<FormInput name="from" type="text" />
+							<FormInput name="senderCity" type="text" />
 						</FieldLabel>
 					</div>
 
