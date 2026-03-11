@@ -7,8 +7,16 @@ export interface RemoveOrderOptions {
 	id: string;
 }
 
-export const removeOrder = ({ orders, id }: RemoveOrderOptions) => {
-	const filtred = orders.filter((order) => order.id !== id);
-	localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify(filtred));
-	return filtred;
+export const removeOrder = ({
+	orders,
+	id,
+}: RemoveOrderOptions): OrderType[] => {
+	// eslint-disable-next-line unicorn/prefer-global-this
+	if (typeof window !== "undefined") {
+		const filtred = orders.filter((order) => order.id !== id);
+		localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify(filtred));
+		return filtred;
+	}
+
+	return [];
 };
