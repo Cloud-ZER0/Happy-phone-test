@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-import { Button } from "@/modules/shared/components/controls/button";
 import { formatPhoneNumber } from "@/modules/shared/utils/format-phone-number";
 
 import { LOCAL_STORAGE_ORDERS_KEY } from "../../constants";
 import { type OrderType } from "../../types";
+import { RemoveOrderModal } from "../modals/remove-order-modal";
 
 export interface OrderCardFull {
 	order: OrderType;
@@ -31,7 +31,7 @@ export const OrderCardFull = ({ order, orders, className }: OrderCardFull) => {
 	return (
 		<div
 			className={clsx(
-				"p-5 rounded-3xl bg-white border border-black flex flex-col gap-6",
+				"p-5 rounded-3xl bg-white border border-black flex flex-col gap-6 w-full max-w-112.5",
 				className,
 			)}
 		>
@@ -52,7 +52,7 @@ export const OrderCardFull = ({ order, orders, className }: OrderCardFull) => {
 				<p>Номер телефона: {formatPhoneNumber(order.phone)}</p>
 				<p>Вес: {order.weight} Кг</p>
 			</Link>
-			<Button onClick={handleRemoveOrder}>Удалить</Button>
+			<RemoveOrderModal id={order.id} onRemove={handleRemoveOrder} />
 		</div>
 	);
 };

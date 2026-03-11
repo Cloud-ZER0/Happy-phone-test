@@ -13,6 +13,6 @@ export const createOrder = (formData: Required<FormOptions>): OrderType => {
 		to: formData.secondStep.to,
 		toName: formData.secondStep.reciverName,
 		weight: formData.secondStep.weight,
-		createdAt: new Date().toDateString(),
+		createdAt: new Date().toLocaleDateString("ru"),
 	};
 };

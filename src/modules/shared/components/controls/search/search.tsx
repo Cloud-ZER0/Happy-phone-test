@@ -1,7 +1,9 @@
 "use client";
 
 import { clsx } from "clsx";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+
+import { useDebounce } from "@/modules/shared/hooks/use-debounce";
 
 import { Button } from "../button";
 import { Input, type InputProps } from "../input";
@@ -24,6 +26,17 @@ export const Search = ({
 	...props
 }: SearchProps) => {
 	const [search, setSearch] = useState(value);
+	const debouncedSearch = useDebounce(search, 300);
+
+	const handleSearchRef = useRef(handleSearch);
+
+	useEffect(() => {
+		handleSearchRef.current = handleSearch;
+	}, [handleSearch]);
+
+	useEffect(() => {
+		handleSearchRef.current(debouncedSearch);
+	}, [debouncedSearch]);
 
 	const onChange = (
 		e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
@@ -31,14 +44,10 @@ export const Search = ({
 		setSearch(e.target.value);
 	};
 
-	const applySearch = () => {
-		handleSearch(search);
-	};
-
-	const onClear = () => {
+	const onClear = useCallback(() => {
 		setSearch("");
 		handleClearSearch();
-	};
+	}, [handleClearSearch]);
 
 	return (
 		<div className={clsx("flex gap-3.5 items-center", className)}>
@@ -50,9 +59,6 @@ export const Search = ({
 				{...props}
 			/>
 			<div className="flex gap-1.5 items-center">
-				<Button onClick={applySearch} className="w-fit">
-					Поиск
-				</Button>
 				<Button className="w-fit" onClick={onClear}>
 					Отчистить
 				</Button>

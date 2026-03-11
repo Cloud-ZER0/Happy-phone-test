@@ -1,8 +1,11 @@
+"use client";
+
 import dynamic from "next/dynamic";
-import React, { useRef } from "react";
+import React, { Suspense, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
 import { Button } from "@/modules/shared/components/controls/button";
+import { Loading } from "@/modules/shared/components/loading/loading";
 import { Modal } from "@/modules/shared/components/overlays/modal";
 
 import { useRemoveOrderModalContext } from "./context";
@@ -35,12 +38,14 @@ export const RemoveOrderModal = ({ id, ...props }: RemoveOrderModal) => {
 			<Button onClick={openModal}>Удалить</Button>
 			{isOpen && (
 				<Modal closeModal={closeModal}>
-					<RemoveModalUl
-						ref={modalRef}
-						closeModal={closeModal}
-						id={id}
-						onRemove={onRemove}
-					/>
+					<Suspense fallback={<Loading />}>
+						<RemoveModalUl
+							ref={modalRef}
+							closeModal={closeModal}
+							id={id}
+							onRemove={onRemove}
+						/>
+					</Suspense>
 				</Modal>
 			)}
 		</>
