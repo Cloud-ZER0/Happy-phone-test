@@ -50,7 +50,8 @@ export const OrdersProvider = ({ children }: PropsWithChildren) => {
 
 	const handleRemoveOrder: HandlerRemoveOrder = useCallback((id) => {
 		setOrders((orders) => {
-			const filtred = orders.filter((order) => order.id === id);
+			const filtred = orders.filter((order) => order.id !== id);
+
 			localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify(filtred));
 			return filtred;
 		});
