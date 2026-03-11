@@ -1,6 +1,8 @@
 import { type CargoType } from "@/modules/form/schemas";
 
 export interface OrderType {
+	id: string;
+	status: "active" | "canceled";
 	fromName: string;
 	toName: string;
 	phone: string;
@@ -8,4 +10,5 @@ export interface OrderType {
 	to: string;
 	cargoType: CargoType;
 	weight: number;
+	createdAt: string;
 }

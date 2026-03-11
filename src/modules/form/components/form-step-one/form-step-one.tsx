@@ -10,11 +10,11 @@ import { FieldLabel } from "@/modules/shared/components/form/field-label";
 import { FormControlProvider } from "@/modules/shared/components/form/form-control/provider";
 import { FormInput } from "@/modules/shared/components/form/form-input";
 
+import { formatPhoneNumber } from "../../../shared/utils/format-phone-number";
 import { LABELS } from "../../constanst";
 import { useFormContext } from "../../context/form-context.hooks";
 import { firstStepFormSchema } from "../../schemas";
 import { getFirstStepErrorMessage } from "../../schemas/error-messages";
-import { formatPhoneNumber } from "../../utils/format-phone-number";
 import { FormControls } from "../form-controls/form-controls";
 
 export interface FormStepOne {
@@ -49,7 +49,7 @@ export const FormStepOne = ({ className }: FormStepOne) => {
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
 					onSubmit={onSubmit}
 				>
-					<h1 className="text-black text-4xl">Sender info</h1>
+					<h1 className="text-black text-4xl">Отправитель</h1>
 					<div className="flex flex-col gap-4">
 						<FieldLabel label={LABELS.name}>
 							<FormInput name="name" type="text" />

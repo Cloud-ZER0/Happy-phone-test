@@ -2,15 +2,19 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { clsx } from "clsx";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
+import { LOCAL_STORAGE_ORDERS_KEY } from "@/modules/order/constants";
+import { type OrderType } from "@/modules/order/types";
 import { FormCheckboxInput } from "@/modules/shared/components/form/form-checkbox-input";
 import { FormControlProvider } from "@/modules/shared/components/form/form-control/provider";
 
 import { useFormContext } from "../../context/form-context.hooks";
-import { thirdStepFormSchema } from "../../schemas";
+import { thirdStepFormSchema, type FormOptions } from "../../schemas";
 import { getThirdStepErrorMessage } from "../../schemas/error-messages";
+import { createOrder } from "../../utils/create-order";
 import { FormControls } from "../form-controls/form-controls";
 import { PreviousUserData } from "../previos-user-data/previous-user-data";
 
@@ -19,6 +23,7 @@ export interface FormStepThree {
 }
 
 export const FormStepThree = ({ className }: FormStepThree) => {
+	const router = useRouter();
 	const { form, submitForm, clearForm } = useFormContext();
 
 	const thirdStepForm = useForm({
@@ -28,7 +33,17 @@ export const FormStepThree = ({ className }: FormStepThree) => {
 
 	const handleFormSubmit = submitForm((value) => {
 		if (value?.firstStep != undefined && value.secondStep != undefined) {
-			console.log("@@@", value);
+			const order = createOrder(value as Required<FormOptions>);
+			const prevOrders = localStorage.getItem(LOCAL_STORAGE_ORDERS_KEY);
+			if (prevOrders != undefined) {
+				localStorage.setItem(
+					LOCAL_STORAGE_ORDERS_KEY,
+					JSON.stringify([...(JSON.parse(prevOrders) as OrderType[]), order]),
+				);
+			} else {
+				localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify([order]));
+			}
+			router.push("/orders");
 		}
 	});
 

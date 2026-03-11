@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 
-import { formatPhone } from "@/modules/shared/utils/format-phone";
+import { formatPhone } from "@/modules/form/utils/format-phone";
 
 import { Input, type InputProps } from "../../controls/input";
 import { FormControl } from "../form-control/form-control";

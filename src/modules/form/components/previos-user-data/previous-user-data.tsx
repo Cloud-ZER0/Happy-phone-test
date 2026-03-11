@@ -3,9 +3,9 @@ import React from "react";
 import { Input } from "@/modules/shared/components/controls/input";
 import { FieldLabel } from "@/modules/shared/components/form/field-label";
 
+import { formatPhoneNumber } from "../../../shared/utils/format-phone-number";
 import { LABELS } from "../../constanst";
 import { type CargoType, type CommonKey, type FormFields } from "../../schemas";
-import { formatPhoneNumber } from "../../utils/format-phone-number";
 import { transformCargoTypeValue } from "../../utils/transform-cargo-type-value";
 
 const formatters: Partial<Record<CommonKey, (v: unknown) => string | number>> =

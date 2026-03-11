@@ -62,7 +62,7 @@ export const FormStepTwo = ({ className }: FormStepTwo) => {
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
 					onSubmit={onSubmit}
 				>
-					<h1 className="text-black text-4xl">Sender info</h1>
+					<h1 className="text-black text-4xl">Получатель и посылка</h1>
 					<div className="flex flex-col gap-4">
 						<FieldLabel label={LABELS.reciverName}>
 							<FormInput name="reciverName" type="text" />
