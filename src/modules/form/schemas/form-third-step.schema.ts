@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { FormThirdStepErrorsCodes } from "./errors";
+import { FormThirdStepErrorsCodes } from "../errors/codes/third-step-error-codes";
 
 export const thirdStepFormSchema = z.object({
 	agreement: z

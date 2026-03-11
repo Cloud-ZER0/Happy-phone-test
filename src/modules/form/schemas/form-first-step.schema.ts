@@ -1,9 +1,9 @@
 import * as z from "zod";
 
-import { FormFirstStepErrorsCodes } from "./errors";
+import { FormFirstStepErrorsCodes } from "../errors/codes/first-step-error-codes";
 
 export const firstStepFormSchema = z.object({
-	name: z.string().min(2, FormFirstStepErrorsCodes.name.required),
+	senderName: z.string().min(2, FormFirstStepErrorsCodes.senderName.required),
 	phone: z
 		.string()
 		.min(1, FormFirstStepErrorsCodes.phone.required)
@@ -12,7 +12,7 @@ export const firstStepFormSchema = z.object({
 			FormFirstStepErrorsCodes.phone.format,
 		)
 		.transform((val) => val.replaceAll(/\D/g, "")),
-	from: z.string().min(1, FormFirstStepErrorsCodes.from.required),
+	senderCity: z.string().min(1, FormFirstStepErrorsCodes.senderCity.required),
 });
 
 export type FirtStepFormOptions = z.infer<typeof firstStepFormSchema>;

@@ -1,6 +1,5 @@
 "use client";
 
-// eslint-disable-next-line import-x/no-unresolved
 import { zodResolver } from "@hookform/resolvers/zod";
 import { clsx } from "clsx";
 import React from "react";
@@ -11,11 +10,11 @@ import { FormControlProvider } from "@/modules/shared/components/form/form-contr
 import { FormInput } from "@/modules/shared/components/form/form-input";
 import { FormSelect } from "@/modules/shared/components/form/form-select/form-select";
 
-import { LABELS } from "../../constanst";
+import { LABELS } from "../../constants";
 import { useFormContext } from "../../context/form-context.hooks";
-import { secondStepFormSchema } from "../../schemas";
-import { getSecondStepErrorMessage } from "../../schemas/error-messages";
-import { FormSecondStepErrorsCodes } from "../../schemas/errors";
+import { FormSecondStepErrorsCodes } from "../../errors/codes/second-step-error-codes";
+import { getSecondStepErrorMessage } from "../../errors/messages/second-step-error-messages";
+import { secondStepFormSchema } from "../../schemas/form-second-step.schema";
 import { FormControls } from "../form-controls/form-controls";
 
 export interface FormStepTwo {
@@ -31,21 +30,23 @@ export const FormStepTwo = ({ className }: FormStepTwo) => {
 		defaultValues:
 			form?.secondStep != undefined
 				? {
-						to: form.secondStep.to,
+						recipientCity: form.secondStep.recipientCity,
 						cargoType: form.secondStep.cargoType,
 						weight: form.secondStep.weight,
-						reciverName: form.secondStep.reciverName,
+						recipientName: form.secondStep.recipientName,
 					}
-				: undefined,
+				: {
+						cargoType: "",
+					},
 	});
 
 	const onSubmit = secondStepForm.handleSubmit((values) => {
-		const from = form?.firstStep?.from ?? "";
+		const from = form?.firstStep?.senderCity ?? "";
 
-		if (from === values.to) {
-			secondStepForm.setError("to", {
+		if (from === values.recipientCity) {
+			secondStepForm.setError("recipientCity", {
 				message: getSecondStepErrorMessage(
-					FormSecondStepErrorsCodes.to.matches,
+					FormSecondStepErrorsCodes.recipientCity.matches,
 				),
 			});
 			return;
@@ -62,16 +63,19 @@ export const FormStepTwo = ({ className }: FormStepTwo) => {
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
 					onSubmit={onSubmit}
 				>
-					<h1 className="text-black text-4xl">Получатель и посылка</h1>
+					<h1 className="text-black text-[24px]">Получатель и посылка</h1>
 					<div className="flex flex-col gap-4">
-						<FieldLabel label={LABELS.reciverName}>
+						<FieldLabel label={LABELS.recipientName}>
 							<FormInput name="reciverName" type="text" />
 						</FieldLabel>
-						<FieldLabel label={LABELS.to}>
+						<FieldLabel label={LABELS.recipientCity}>
 							<FormInput name="to" type="text" />
 						</FieldLabel>
 						<FieldLabel label={LABELS.cargoType}>
 							<FormSelect name="cargoType">
+								<option value="" disabled>
+									Выберите тип груза
+								</option>
 								<option value="document">Документ</option>
 								<option value="fragile">Хрупкое</option>
 								<option value="regular">Обычное</option>

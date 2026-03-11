@@ -3,8 +3,8 @@
 import Link from "next/link";
 import React from "react";
 
-import { LOCAL_STORAGE_ORDERS_KEY } from "../../constants";
-import { type OrderType } from "../../types";
+import { getOrderById } from "@/modules/api/order/get-order-by-id";
+
 import { OrderCardFull } from "../order-card-full";
 
 export interface OrderPageContent {
@@ -12,29 +12,16 @@ export interface OrderPageContent {
 }
 
 export const OrderPageContent = ({ id }: OrderPageContent) => {
-	const rawOrders = localStorage.getItem(LOCAL_STORAGE_ORDERS_KEY);
-
-	if (rawOrders == undefined) {
-		return (
-			<>
-				<h1>Заказы не найдены</h1>
-				<Link href="/">Назад</Link>
-			</>
-		);
-	}
-
-	const orders = JSON.parse(rawOrders) as OrderType[];
-
-	const order = orders.find((order) => order.id === id);
+	const order = getOrderById(id);
 
 	if (order == undefined) {
 		return (
-			<>
+			<div className="flex flex-col gap-3 w-full justify-center">
 				<h1>Заказ с id {id} не найден</h1>
 				<Link href="/">Назад</Link>
-			</>
+			</div>
 		);
 	}
 
-	return <OrderCardFull order={order} orders={orders} />;
+	return <OrderCardFull order={order} />;
 };

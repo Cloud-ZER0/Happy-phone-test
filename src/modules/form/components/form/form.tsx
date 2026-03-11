@@ -17,7 +17,7 @@ export const Form = ({ className }: FormProps) => {
 	return (
 		<div
 			className={clsx(
-				"w-full max-w-[80%] p-6 bg-amber-100 rounded-4xl border border-black flex flex-col gap-7",
+				"w-full max-w-155 p-6 bg-white rounded-4xl border border-[#F3F4FA] flex flex-col gap-7",
 				className,
 			)}
 		>

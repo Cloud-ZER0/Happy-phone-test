@@ -5,26 +5,22 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
+import { removOrderById } from "@/modules/api/order/remove-order-by-id";
 import { formatPhoneNumber } from "@/modules/shared/utils/format-phone-number";
 
-import { LOCAL_STORAGE_ORDERS_KEY } from "../../constants";
 import { type OrderType } from "../../types";
 import { RemoveOrderModal } from "../modals/remove-order-modal";
 
-export interface OrderCardFull {
+export interface OrderCardFullProps {
 	order: OrderType;
-	orders: OrderType[];
 	className?: string;
 }
 
-export const OrderCardFull = ({ order, orders, className }: OrderCardFull) => {
+export const OrderCardFull = ({ order, className }: OrderCardFullProps) => {
 	const router = useRouter();
 
 	const handleRemoveOrder = () => {
-		localStorage.setItem(
-			LOCAL_STORAGE_ORDERS_KEY,
-			JSON.stringify(orders.filter(({ id }) => id !== order.id)),
-		);
+		removOrderById(order.id);
 		router.push("/orders");
 	};
 
@@ -40,12 +36,12 @@ export const OrderCardFull = ({ order, orders, className }: OrderCardFull) => {
 				className="flex flex-col gap-3 text text-xl"
 			>
 				<p>
-					{order.from}
+					{order.senderCity}
 					{"->"}
-					{order.to}
+					{order.recipientCity}
 				</p>
-				<p>Имя отправителя: {order.fromName}</p>
-				<p>Имя получателя: {order.toName}</p>
+				<p>Имя отправителя: {order.senderName}</p>
+				<p>Имя получателя: {order.recipientName}</p>
 				<p>Тип груза: {order.cargoType}</p>
 				<p>Дата создания: {order.createdAt}</p>
 				<p>Статус: {order.status === "active" ? "Активный" : "Отменен"}</p>

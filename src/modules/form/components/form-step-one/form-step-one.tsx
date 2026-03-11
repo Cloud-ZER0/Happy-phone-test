@@ -11,10 +11,10 @@ import { FormControlProvider } from "@/modules/shared/components/form/form-contr
 import { FormInput } from "@/modules/shared/components/form/form-input";
 
 import { formatPhoneNumber } from "../../../shared/utils/format-phone-number";
-import { LABELS } from "../../constanst";
+import { LABELS } from "../../constants";
 import { useFormContext } from "../../context/form-context.hooks";
-import { firstStepFormSchema } from "../../schemas";
-import { getFirstStepErrorMessage } from "../../schemas/error-messages";
+import { getFirstStepErrorMessage } from "../../errors/messages/first-step-error-messages";
+import { firstStepFormSchema } from "../../schemas/form-first-step.schema";
 import { FormControls } from "../form-controls/form-controls";
 
 export interface FormStepOne {
@@ -30,8 +30,8 @@ export const FormStepOne = ({ className }: FormStepOne) => {
 		defaultValues:
 			form?.firstStep != undefined
 				? {
-						from: form.firstStep.from,
-						name: form.firstStep.name,
+						senderCity: form.firstStep.senderCity,
+						senderName: form.firstStep.senderName,
 						phone: formatPhoneNumber(form.firstStep.phone),
 					}
 				: undefined,
@@ -45,13 +45,13 @@ export const FormStepOne = ({ className }: FormStepOne) => {
 		<FormProvider {...firstStepForm}>
 			<FormControlProvider getErrorMessage={getFirstStepErrorMessage}>
 				<form
-					className={clsx("w-full flex flex-col gap-6", className)}
+					className={clsx("w-full flex flex-col gap-4", className)}
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
 					onSubmit={onSubmit}
 				>
-					<h1 className="text-black text-4xl">Отправитель</h1>
+					<h1 className="text-black text-[24px]">Отправитель</h1>
 					<div className="flex flex-col gap-4">
-						<FieldLabel label={LABELS.name}>
+						<FieldLabel label={LABELS.senderName}>
 							<FormInput name="name" type="text" />
 						</FieldLabel>
 						<FieldLabel label={LABELS.phone}>
@@ -62,7 +62,7 @@ export const FormStepOne = ({ className }: FormStepOne) => {
 								isPhone
 							/>
 						</FieldLabel>
-						<FieldLabel label={LABELS.from}>
+						<FieldLabel label={LABELS.senderCity}>
 							<FormInput name="from" type="text" />
 						</FieldLabel>
 					</div>

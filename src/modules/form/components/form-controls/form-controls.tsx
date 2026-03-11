@@ -33,12 +33,12 @@ export const FormControls = ({
 			<Button
 				onClick={handlePrevClick}
 				type="button"
-				disabled={form?.currentStep === "1"}
+				disabled={form == undefined || form.currentStep === "1"}
 				className="w-fit"
 			>
 				Назад
 			</Button>
-			<Button type="submit" className="w-fit">
+			<Button type="submit" className=" w-fit">
 				{nextBtnText}
 			</Button>
 		</div>

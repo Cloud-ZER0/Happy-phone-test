@@ -4,7 +4,7 @@ import { createElement, Suspense } from "react";
 import { Loading } from "@/modules/shared/components/loading/loading";
 
 import { FormStepOne } from "../components/form-step-one";
-import { type FormOptions } from "../schemas";
+import { type FormOptions } from "../types";
 
 const LazyStepTwo = dynamic(
 	() =>

@@ -8,7 +8,7 @@ export type FieldLabelVariants = "default" | "error";
 const labelTextVariants = cva(
 	[
 		"font-sans",
-		"text-lg",
+		"text-[16px]",
 		"font-semibold",
 		"leading-relaxed",
 		"text-left",

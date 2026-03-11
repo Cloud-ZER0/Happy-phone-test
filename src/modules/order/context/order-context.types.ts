@@ -1,4 +1,4 @@
-import { type CargoType } from "@/modules/form/schemas";
+import { type CargoType } from "@/modules/form/types";
 
 import { type OrderType } from "../types";
 

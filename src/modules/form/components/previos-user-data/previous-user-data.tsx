@@ -4,8 +4,8 @@ import { Input } from "@/modules/shared/components/controls/input";
 import { FieldLabel } from "@/modules/shared/components/form/field-label";
 
 import { formatPhoneNumber } from "../../../shared/utils/format-phone-number";
-import { LABELS } from "../../constanst";
-import { type CargoType, type CommonKey, type FormFields } from "../../schemas";
+import { LABELS } from "../../constants";
+import { type CargoType, type CommonKey, type FormFields } from "../../types";
 import { transformCargoTypeValue } from "../../utils/transform-cargo-type-value";
 
 const formatters: Partial<Record<CommonKey, (v: unknown) => string | number>> =
@@ -15,13 +15,13 @@ const formatters: Partial<Record<CommonKey, (v: unknown) => string | number>> =
 	};
 
 const DISPLAY_FIELDS: CommonKey[] = [
+	"senderName",
+	"senderCity",
 	"phone",
+	"recipientName",
+	"recipientCity",
 	"cargoType",
 	"weight",
-	"from",
-	"to",
-	"name",
-	"reciverName",
 ];
 
 export const PreviousUserData = ({ data }: { data?: FormFields }) => {
@@ -30,7 +30,7 @@ export const PreviousUserData = ({ data }: { data?: FormFields }) => {
 	}
 
 	return (
-		<>
+		<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 			{DISPLAY_FIELDS.map((key) => {
 				const value = data[key];
 				const label = LABELS[key];
@@ -48,6 +48,6 @@ export const PreviousUserData = ({ data }: { data?: FormFields }) => {
 					</FieldLabel>
 				);
 			})}
-		</>
+		</div>
 	);
 };

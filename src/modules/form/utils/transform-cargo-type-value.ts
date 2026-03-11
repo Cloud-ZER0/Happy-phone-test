@@ -1,4 +1,4 @@
-import { type CargoType } from "../schemas";
+import { type CargoType } from "../schemas/form-second-step.schema";
 
 export const transformCargoTypeValue = ({
 	type,

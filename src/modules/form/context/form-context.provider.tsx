@@ -1,45 +1,46 @@
 "use client";
 
-import { useMemo, useState, type PropsWithChildren } from "react";
+import { useCallback, useMemo, useState, type PropsWithChildren } from "react";
 
-import { FORM_STORAGE_KEY } from "../constanst";
-import { type FormOptions } from "../schemas";
+import { clearFormStorage } from "@/modules/api/form/clear-form-storage";
+import { getFormStorage } from "@/modules/api/form/get-form-storage";
+import { updateFormStorage } from "@/modules/api/form/update-form-storage";
+
+import { type FormOptions } from "../types";
 import { FormContext } from "./form-context";
-import { type FormContextOptions } from "./form-context.types";
+import {
+	type ClearForm,
+	type FormContextOptions,
+	type SubmitForm,
+	type UpdateForm,
+} from "./form-context.types";
 
 export const FormProvider = ({ children }: PropsWithChildren) => {
-	const [form, setForm] = useState<FormOptions | undefined>(() => {
-		const formValue = localStorage.getItem(FORM_STORAGE_KEY);
-		return formValue != undefined
-			? (JSON.parse(formValue) as FormOptions)
-			: undefined;
-	});
+	const [form, setForm] = useState<FormOptions | undefined>(() =>
+		getFormStorage(),
+	);
 
-	// Не имеет смысла оборачивать в useCalback, функция лежит
-	// в объекте, который зависит от form, любое обновление form
-	// в итоге будет убивать стабильную ссылку на эти функции
-
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const clearForm: FormContextOptions["clearForm"] = () => {
+	const clearForm: ClearForm = useCallback(() => {
 		setForm(undefined);
-		localStorage.removeItem(FORM_STORAGE_KEY);
-	};
+		clearFormStorage();
+	}, []);
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const updateForm: FormContextOptions["updateForm"] = ({ formData }) => {
+	const updateForm: UpdateForm = useCallback(({ formData }) => {
 		setForm((form) => {
 			const currentForm = { ...form, ...formData };
-			localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(currentForm));
+			updateFormStorage(currentForm);
 			return currentForm;
 		});
-	};
+	}, []);
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const submitForm: FormContextOptions["submitForm"] = (callback) => {
-		return () => {
-			callback(form);
-		};
-	};
+	const submitForm: SubmitForm = useCallback(
+		(callback) => {
+			return () => {
+				callback(form);
+			};
+		},
+		[form],
+	);
 
 	const value: FormContextOptions = useMemo(() => {
 		return {

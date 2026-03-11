@@ -1,4 +1,4 @@
-import { type CargoType } from "@/modules/form/schemas";
+import { type CargoType } from "@/modules/form/types";
 import { type SearchOptions } from "@/modules/order/context/order-context.types";
 
 export type HandleSearch = ({ name, city }: SearchOptions) => void;

@@ -4,6 +4,7 @@ import React from "react";
 
 import { useOrdersControlsContext } from "@/modules/order-controls/context/order-controls-context.hook";
 import { Search } from "@/modules/shared/components/controls/search";
+import { FieldLabel } from "@/modules/shared/components/form/field-label";
 
 import { useOrdersContext } from "../../../order/context/orders-context.hooks";
 
@@ -28,19 +29,23 @@ export const OrdersSearch = () => {
 	};
 
 	return (
-		<div className="w-full flex flex-col gap-4">
-			<Search
-				handleSearch={handleNameSearchChange}
-				handleClearSearch={handleClearNameSearch}
-				value={options.search.name}
-				placeholder="Поиск по имени получателя"
-			/>
-			<Search
-				handleSearch={handleCitySearchChange}
-				handleClearSearch={handleClearCitySearch}
-				value={options.search.city}
-				placeholder="Поиск по месту назначения"
-			/>
+		<div className="w-full flex flex-col gap-4 bg-white max-w-310 p-6 rounded-3xl">
+			<FieldLabel label="Поиск по имени получателя">
+				<Search
+					handleSearch={handleNameSearchChange}
+					handleClearSearch={handleClearNameSearch}
+					value={options.search.name}
+					placeholder="Поиск..."
+				/>
+			</FieldLabel>
+			<FieldLabel label="Поиск по месту назначения">
+				<Search
+					handleSearch={handleCitySearchChange}
+					handleClearSearch={handleClearCitySearch}
+					value={options.search.city}
+					placeholder="Поиск..."
+				/>
+			</FieldLabel>
 		</div>
 	);
 };

@@ -1,15 +1,18 @@
 import * as z from "zod";
 
-import { FormSecondStepErrorsCodes } from "./errors";
+import { FormSecondStepErrorsCodes } from "../errors/codes/second-step-error-codes";
 
-const cargoType = z.enum(
-	["document", "fragile", "regular"],
-	FormSecondStepErrorsCodes.cargoType.required,
-);
+const cargoType = z
+	.enum(["document", "fragile", "regular", ""])
+	.refine((data) => data !== "", FormSecondStepErrorsCodes.cargoType.required);
 
 export const secondStepFormSchema = z.object({
-	reciverName: z.string().min(2, FormSecondStepErrorsCodes.name.required),
-	to: z.string().min(1, FormSecondStepErrorsCodes.to.required),
+	recipientName: z
+		.string()
+		.min(2, FormSecondStepErrorsCodes.recipientName.required),
+	recipientCity: z
+		.string()
+		.min(1, FormSecondStepErrorsCodes.recipientCity.required),
 	cargoType: cargoType,
 	weight: z.coerce
 		.number(FormSecondStepErrorsCodes.weight.format)

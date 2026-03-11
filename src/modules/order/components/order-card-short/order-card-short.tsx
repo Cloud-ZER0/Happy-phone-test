@@ -4,9 +4,9 @@ import React, { type PropsWithChildren } from "react";
 
 import { type OrderType } from "../../types";
 
-export interface OrderCardShort extends Omit<
+export interface OrderCardShortProps extends Omit<
 	OrderType,
-	"toName" | "weight" | "phone"
+	"weight" | "phone" | "recipientName"
 > {
 	className?: string;
 }
@@ -14,14 +14,14 @@ export interface OrderCardShort extends Omit<
 export const OrderCardShort = ({
 	cargoType,
 	createdAt,
-	from,
-	fromName,
 	id,
 	status,
-	to,
 	children,
 	className,
-}: PropsWithChildren<OrderCardShort>) => {
+	recipientCity,
+	senderCity,
+	senderName,
+}: PropsWithChildren<OrderCardShortProps>) => {
 	return (
 		<div
 			className={clsx(
@@ -31,11 +31,11 @@ export const OrderCardShort = ({
 		>
 			<Link href={`/orders/${id}`} className="flex flex-col gap-3 text text-xl">
 				<p>
-					{from}
+					{senderCity}
 					{"->"}
-					{to}
+					{recipientCity}
 				</p>
-				<p>Имя отправителя: {fromName}</p>
+				<p>Имя отправителя: {senderName}</p>
 				<p>Тип груза: {cargoType}</p>
 				<p>Дата создания: {createdAt}</p>
 				<p>Статус: {status === "active" ? "Активный" : "Отменен"}</p>

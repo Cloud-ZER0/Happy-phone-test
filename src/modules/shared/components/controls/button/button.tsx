@@ -15,13 +15,13 @@ const variantStyles = {
 		"text-white",
 		"bg-gradient-to-b from-[#5264D3] to-[#1F2D86]",
 		"disabled:cursor-not-allowed disabled:text-[#A2A6C0] disabled:bg-[#E6EAFF]",
-		"hover:not-disabled:from-[#5264D3] hover:not-disabled:to-[#111F77]",
+		"hover:from-[#5264D3] hover:to-[#111F77]",
 	].join(" "),
 	secondary: [
 		"px-[22px] py-[14px] border-2 border-[#F3F4FA]",
 		"text-[#090E28] bg-white",
 		"disabled:cursor-not-allowed disabled:text-[#A2A6C0] disabled:bg-[#E6EAFF]",
-		"hover:not-disabled:text-[#090E28] hover:not-disabled:bg-[#F3F4FA]",
+		"hover:text-[#090E28] hover:bg-[#F3F4FA]",
 	].join(" "),
 };
 

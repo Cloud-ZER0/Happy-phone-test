@@ -6,14 +6,14 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { LOCAL_STORAGE_ORDERS_KEY } from "@/modules/order/constants";
-import { type OrderType } from "@/modules/order/types";
+import { addOrderToStorage } from "@/modules/api/order/add-order-to-storage";
 import { FormCheckboxInput } from "@/modules/shared/components/form/form-checkbox-input";
 import { FormControlProvider } from "@/modules/shared/components/form/form-control/provider";
 
 import { useFormContext } from "../../context/form-context.hooks";
-import { thirdStepFormSchema, type FormOptions } from "../../schemas";
-import { getThirdStepErrorMessage } from "../../schemas/error-messages";
+import { getThirdStepErrorMessage } from "../../errors/messages/third-step-error-messages";
+import { thirdStepFormSchema } from "../../schemas/form-third-step.schema";
+import { type FormOptions } from "../../types";
 import { createOrder } from "../../utils/create-order";
 import { FormControls } from "../form-controls/form-controls";
 import { PreviousUserData } from "../previos-user-data/previous-user-data";
@@ -34,15 +34,7 @@ export const FormStepThree = ({ className }: FormStepThree) => {
 	const handleFormSubmit = submitForm((value) => {
 		if (value?.firstStep != undefined && value.secondStep != undefined) {
 			const order = createOrder(value as Required<FormOptions>);
-			const prevOrders = localStorage.getItem(LOCAL_STORAGE_ORDERS_KEY);
-			if (prevOrders != undefined) {
-				localStorage.setItem(
-					LOCAL_STORAGE_ORDERS_KEY,
-					JSON.stringify([...(JSON.parse(prevOrders) as OrderType[]), order]),
-				);
-			} else {
-				localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify([order]));
-			}
+			addOrderToStorage(order);
 			router.push("/orders");
 		}
 	});
@@ -65,7 +57,7 @@ export const FormStepThree = ({ className }: FormStepThree) => {
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
 					onSubmit={onSubmit}
 				>
-					<h1 className="text-black text-4xl">Подтверждение</h1>
+					<h1 className="text-black text-[24px]">Подтверждение</h1>
 					<div className="flex flex-col gap-4">
 						<PreviousUserData data={combinedData} />
 						<FormCheckboxInput

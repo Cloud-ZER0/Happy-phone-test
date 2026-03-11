@@ -8,7 +8,7 @@ import { OrdersProvider } from "../../context/orders-context.provider";
 
 export const OrdersPage = () => {
 	return (
-		<main className="flex flex-col gap-5">
+		<main className="flex flex-col gap-5 items-center p-6">
 			<Suspense fallback={<Loading />}>
 				<OrdersProvider>
 					<OrdersControls />
