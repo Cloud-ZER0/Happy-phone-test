@@ -11,8 +11,8 @@ import { FormContext } from "./form-context";
 import {
 	type ClearForm,
 	type FormContextOptions,
-	type SubmitForm,
 	type UpdateForm,
+	type WithForm,
 } from "./form-context.types";
 
 export const FormProvider = ({ children }: PropsWithChildren) => {
@@ -33,11 +33,13 @@ export const FormProvider = ({ children }: PropsWithChildren) => {
 		});
 	}, []);
 
-	const submitForm: SubmitForm = useCallback(
+	const withForm: WithForm = useCallback(
 		(callback) => {
-			return () => {
-				callback(form);
-			};
+			if (form == undefined) {
+				return;
+			}
+
+			callback(form);
 		},
 		[form],
 	);
@@ -46,10 +48,10 @@ export const FormProvider = ({ children }: PropsWithChildren) => {
 		return {
 			form,
 			clearForm,
-			submitForm,
+			withForm,
 			updateForm,
 		};
-	}, [form, clearForm, updateForm, submitForm]);
+	}, [form, clearForm, updateForm, withForm]);
 
 	return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
 };

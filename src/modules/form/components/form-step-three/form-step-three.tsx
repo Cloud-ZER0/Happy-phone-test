@@ -11,7 +11,7 @@ import { FormCheckboxInput } from "@/modules/shared/components/form/form-checkbo
 import { FormControlProvider } from "@/modules/shared/components/form/form-control/provider";
 
 import { useFormContext } from "../../context/form-context.hooks";
-import { getThirdStepErrorMessage } from "../../errors/messages/third-step-error-messages";
+import { getThirdStepErrorMessage } from "../../schemas/form-third-step.errors";
 import { thirdStepFormSchema } from "../../schemas/form-third-step.schema";
 import { type FormOptions } from "../../types";
 import { createOrder } from "../../utils/create-order";
@@ -24,20 +24,22 @@ export interface FormStepThree {
 
 export const FormStepThree = ({ className }: FormStepThree) => {
 	const router = useRouter();
-	const { form, submitForm, clearForm } = useFormContext();
+	const { form, withForm, clearForm } = useFormContext();
 
 	const thirdStepForm = useForm({
 		mode: "onSubmit",
 		resolver: zodResolver(thirdStepFormSchema),
 	});
 
-	const handleFormSubmit = submitForm((value) => {
-		if (value?.firstStep != undefined && value.secondStep != undefined) {
-			const order = createOrder(value as Required<FormOptions>);
-			addOrderToStorage(order);
-			router.push("/orders");
-		}
-	});
+	const handleFormSubmit = () => {
+		withForm((value) => {
+			if (value.firstStep != undefined && value.secondStep != undefined) {
+				const order = createOrder(value as Required<FormOptions>);
+				addOrderToStorage(order);
+				router.push("/orders");
+			}
+		});
+	};
 
 	const onSubmit = thirdStepForm.handleSubmit(() => {
 		handleFormSubmit();

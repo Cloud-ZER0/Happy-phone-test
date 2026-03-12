@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { FormSecondStepErrorsCodes } from "../errors/codes/second-step-error-codes";
+import { FormSecondStepErrorsCodes } from "./form-second-step.errors";
 
 const cargoType = z
 	.enum(["document", "fragile", "regular", ""])

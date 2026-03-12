@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { FormFirstStepErrorsCodes } from "../errors/codes/first-step-error-codes";
+import { FormFirstStepErrorsCodes } from "./form-first-step.errors";
 
 export const firstStepFormSchema = z.object({
 	senderName: z.string().min(2, FormFirstStepErrorsCodes.senderName.required),

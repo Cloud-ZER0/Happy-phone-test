@@ -12,7 +12,7 @@ import { FormInput } from "@/modules/shared/components/form/form-input";
 import { formatPhoneNumber } from "../../../shared/utils/format-phone-number";
 import { LABELS } from "../../constants";
 import { useFormContext } from "../../context/form-context.hooks";
-import { getFirstStepErrorMessage } from "../../errors/messages/first-step-error-messages";
+import { getFirstStepErrorMessage } from "../../schemas/form-first-step.errors";
 import { firstStepFormSchema } from "../../schemas/form-first-step.schema";
 import { FormControls } from "../form-controls/form-controls";
 

@@ -1,14 +1,9 @@
 import { type FormOptions } from "@/modules/form/types";
 
 import { FORM_STORAGE_KEY } from "../constants";
+import { getLocalStorageItem } from "../storage/safe-storage";
+import { formOptionsSchema } from "../storage/storage.schemas";
 
 export const getFormStorage = (): FormOptions | undefined => {
-	// eslint-disable-next-line unicorn/prefer-global-this
-	if (typeof window !== "undefined") {
-		const formValue = localStorage.getItem(FORM_STORAGE_KEY);
-		return formValue != undefined
-			? (JSON.parse(formValue) as FormOptions)
-			: undefined;
-	}
-	return;
+	return getLocalStorageItem(FORM_STORAGE_KEY, formOptionsSchema);
 };

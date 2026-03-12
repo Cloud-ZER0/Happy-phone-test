@@ -6,9 +6,7 @@ export type UpdateForm = ({
 	formData: PartialFormOptions;
 }) => void;
 
-export type SubmitForm = (
-	callback: (formData?: FormOptions) => void,
-) => () => void;
+export type WithForm = (callback: (formData: FormOptions) => void) => void;
 
 export type ClearForm = () => void;
 
@@ -18,6 +16,6 @@ export type PartialFormOptions = Partial<FormOptions> &
 export interface FormContextOptions {
 	form?: FormOptions;
 	updateForm: UpdateForm;
-	submitForm: SubmitForm;
+	withForm: WithForm;
 	clearForm: ClearForm;
 }

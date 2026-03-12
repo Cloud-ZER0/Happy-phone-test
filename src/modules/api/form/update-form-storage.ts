@@ -1,10 +1,15 @@
 import { type FormOptions } from "@/modules/form/types";
 
 import { FORM_STORAGE_KEY } from "../constants";
+import { setLocalStorageItem } from "../storage/safe-storage";
+import { formOptionsSchema } from "../storage/storage.schemas";
 
 export const updateFormStorage = (currentForm: Partial<FormOptions>): void => {
-	// eslint-disable-next-line unicorn/prefer-global-this
-	if (typeof window !== "undefined") {
-		localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(currentForm));
+	// валидируем и нормализуем перед записью
+	const parsed = formOptionsSchema.partial().safeParse(currentForm);
+	if (!parsed.success) {
+		return;
 	}
+
+	setLocalStorageItem(FORM_STORAGE_KEY, parsed.data);
 };

@@ -1,4 +1,15 @@
-import { FormFirstStepErrorsCodes } from "../codes/first-step-error-codes";
+export const FormFirstStepErrorsCodes = {
+	senderName: {
+		required: "form.senderName.required",
+	},
+	phone: {
+		required: "form.phone.required",
+		format: "form.phone.format",
+	},
+	senderCity: {
+		required: "form.senderCity.required",
+	},
+} as const;
 
 export const firstStepErrorMessages = {
 	[FormFirstStepErrorsCodes.senderName.required]: "Заполните это поле",
@@ -13,3 +24,4 @@ export function getFirstStepErrorMessage(code: string) {
 
 	return message ?? code;
 }
+

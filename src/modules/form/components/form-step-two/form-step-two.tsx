@@ -12,8 +12,10 @@ import { FormSelect } from "@/modules/shared/components/form/form-select/form-se
 
 import { LABELS } from "../../constants";
 import { useFormContext } from "../../context/form-context.hooks";
-import { FormSecondStepErrorsCodes } from "../../errors/codes/second-step-error-codes";
-import { getSecondStepErrorMessage } from "../../errors/messages/second-step-error-messages";
+import {
+	FormSecondStepErrorsCodes,
+	getSecondStepErrorMessage,
+} from "../../schemas/form-second-step.errors";
 import { secondStepFormSchema } from "../../schemas/form-second-step.schema";
 import { FormControls } from "../form-controls/form-controls";
 
