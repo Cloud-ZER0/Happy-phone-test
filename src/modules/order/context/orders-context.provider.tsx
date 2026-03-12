@@ -2,11 +2,13 @@
 
 import React, {
 	useCallback,
+	useEffect,
 	useMemo,
 	useState,
 	type PropsWithChildren,
 } from "react";
 
+import { LOCAL_STORAGE_ORDERS_KEY } from "@/modules/api/constants";
 import { getOrdersStorage } from "@/modules/api/order/get-orders-storage";
 import { removeOrder } from "@/modules/api/order/remove-order";
 import { useSearchParams } from "@/modules/shared/hooks/use-search-params";
@@ -35,15 +37,37 @@ export const OrdersProvider = ({ children }: PropsWithChildren) => {
 	const citySearchQuery = get(CITY_SEARCH_PARAMS_KEY) ?? "";
 	const filterQuery = get(FILTER_PARAMS_KEY) ?? "";
 
+	const filter: FilterType =
+		filterQuery === "document" ||
+		filterQuery === "fragile" ||
+		filterQuery === "regular"
+			? filterQuery
+			: "";
+
 	const filteredOrders = useMemo(() => {
 		return orders.filter((order): boolean => {
 			const matchesName = getSearchMatch(order.senderName, nameSearchQuery);
 			const matchesCity = getSearchMatch(order.senderCity, citySearchQuery);
-			const matchesCargoType = getSearchMatch(order.cargoType, filterQuery);
+			const matchesCargoType = getSearchMatch(order.cargoType, filter);
 
 			return matchesName && matchesCity && matchesCargoType;
 		});
-	}, [orders, nameSearchQuery, citySearchQuery, filterQuery]);
+	}, [orders, nameSearchQuery, citySearchQuery, filter]);
+
+	useEffect(() => {
+		const onStorage = (event: StorageEvent) => {
+			if (event.key !== LOCAL_STORAGE_ORDERS_KEY) {
+				return;
+			}
+
+			setOrders(getOrdersStorage());
+		};
+
+		globalThis.window.addEventListener("storage", onStorage);
+		return () => {
+			globalThis.window.removeEventListener("storage", onStorage);
+		};
+	}, []);
 
 	const handleRemoveOrder: HandlerRemoveOrder = useCallback((id) => {
 		setOrders((orders) => removeOrder({ orders, id }));
@@ -57,7 +81,7 @@ export const OrdersProvider = ({ children }: PropsWithChildren) => {
 					city: citySearchQuery,
 					name: nameSearchQuery,
 				},
-				filter: filterQuery as FilterType,
+				filter,
 			},
 			handlers: {
 				handleRemoveOrder,
@@ -65,7 +89,7 @@ export const OrdersProvider = ({ children }: PropsWithChildren) => {
 		}),
 		[
 			citySearchQuery,
-			filterQuery,
+			filter,
 			filteredOrders,
 			handleRemoveOrder,
 			nameSearchQuery,

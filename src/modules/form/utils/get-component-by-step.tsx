@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { createElement, Suspense } from "react";
+import { type JSX } from "react";
 
 import { Loading } from "@/modules/shared/components/loading/loading";
 
@@ -11,45 +11,40 @@ const LazyStepTwo = dynamic(
 		import("../components/form-step-two/form-step-two").then(
 			(mod) => mod.FormStepTwo,
 		),
-	{ ssr: false },
+	{
+		ssr: false,
+		loading: () => <Loading />,
+	},
 );
 const LazyStepThree = dynamic(
 	() =>
 		import("../components/form-step-three/form-step-three").then(
 			(mod) => mod.FormStepThree,
 		),
-	{ ssr: false },
+	{
+		ssr: false,
+		loading: () => <Loading />,
+	},
 );
 
-export const getComponentByStep = ({
-	formStep,
-}: {
-	formStep: FormOptions["currentStep"] | undefined;
-}): React.ReactNode => {
-	if (formStep != undefined) {
-		switch (formStep) {
-			case "1": {
-				return <FormStepOne />;
-			}
-			case "2": {
-				return (
-					<Suspense fallback={<Loading />}>
-						<LazyStepTwo />
-					</Suspense>
-				);
-			}
-			case "3": {
-				return (
-					<Suspense fallback={<Loading />}>
-						<LazyStepThree />
-					</Suspense>
-				);
-			}
-			default: {
-				const _exhaustiveCheck: never = formStep;
-				throw new Error(`Unhandled step: ${_exhaustiveCheck}`);
-			}
+export const getComponentByStep = (
+	formStep: FormOptions["currentStep"] | undefined,
+): JSX.Element => {
+	const step = formStep ?? "1";
+
+	switch (step) {
+		case "1": {
+			return <FormStepOne />;
+		}
+		case "2": {
+			return <LazyStepTwo />;
+		}
+		case "3": {
+			return <LazyStepThree />;
+		}
+		default: {
+			const _exhaustiveCheck: never = step;
+			throw new Error(`Unhandled step: ${_exhaustiveCheck}`);
 		}
 	}
-	return createElement(FormStepOne);
 };

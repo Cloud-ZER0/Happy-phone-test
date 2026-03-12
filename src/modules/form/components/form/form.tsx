@@ -22,7 +22,7 @@ export const Form = ({ className }: FormProps) => {
 			)}
 		>
 			<ProgressBar />
-			{getComponentByStep({ formStep: form?.currentStep })}
+			{getComponentByStep(form?.currentStep)}
 		</div>
 	);
 };
