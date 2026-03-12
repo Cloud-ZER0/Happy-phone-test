@@ -7,12 +7,8 @@ export const FORM_CONTEXT_INITIAL_VALUE: FormContextOptions = {
 	clearForm() {
 		/* empty */
 	},
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	submitForm(_callback) {
-		// eslint-disable-next-line unicorn/consistent-function-scoping
-		return () => {
-			/* empty */
-		};
+	withForm() {
+		/* empty */
 	},
 
 	updateForm() {
