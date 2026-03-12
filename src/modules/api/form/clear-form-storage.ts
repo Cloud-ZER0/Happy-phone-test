@@ -1,8 +1,6 @@
 import { FORM_STORAGE_KEY } from "../constants";
+import { removeLocalStorageItem } from "../storage/safe-storage";
 
 export const clearFormStorage = (): void => {
-	// eslint-disable-next-line unicorn/prefer-global-this
-	if (typeof window !== "undefined") {
-		localStorage.removeItem(FORM_STORAGE_KEY);
-	}
+	removeLocalStorageItem(FORM_STORAGE_KEY);
 };

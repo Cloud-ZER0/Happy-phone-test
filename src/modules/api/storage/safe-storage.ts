@@ -1,6 +1,6 @@
 import { type z } from "zod";
 
-export const isBrowser = (): boolean => typeof window !== "undefined";
+export const isBrowser = (): boolean => typeof globalThis.window !== "undefined";
 
 export const safeParseJson = <T>(
 	raw: string,
@@ -19,12 +19,11 @@ export const getLocalStorageItem = <T>(
 	key: string,
 	schema: z.ZodType<T>,
 ): T | undefined => {
-	// eslint-disable-next-line unicorn/prefer-global-this
 	if (!isBrowser()) {
 		return undefined;
 	}
 
-	const raw = localStorage.getItem(key);
+	const raw = globalThis.localStorage.getItem(key);
 	if (raw == undefined) {
 		return undefined;
 	}
@@ -33,10 +32,17 @@ export const getLocalStorageItem = <T>(
 };
 
 export const setLocalStorageItem = (key: string, value: unknown): void => {
-	// eslint-disable-next-line unicorn/prefer-global-this
 	if (!isBrowser()) {
 		return;
 	}
 
-	localStorage.setItem(key, JSON.stringify(value));
+	globalThis.localStorage.setItem(key, JSON.stringify(value));
+};
+
+export const removeLocalStorageItem = (key: string): void => {
+	if (!isBrowser()) {
+		return;
+	}
+
+	globalThis.localStorage.removeItem(key);
 };
