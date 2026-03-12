@@ -1,6 +1,8 @@
 import { type z } from "zod";
 
-export const isBrowser = (): boolean => typeof globalThis.window !== "undefined";
+export const isBrowser = (): boolean =>
+	// eslint-disable-next-line unicorn/no-typeof-undefined
+	typeof globalThis.window !== "undefined";
 
 export const safeParseJson = <T>(
 	raw: string,

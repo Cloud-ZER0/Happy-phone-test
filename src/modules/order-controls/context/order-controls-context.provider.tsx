@@ -5,7 +5,6 @@ import { useCallback, useMemo, type PropsWithChildren } from "react";
 import {
 	CITY_SEARCH_PARAMS_KEY,
 	NAME_SEARCH_PARAMS_KEY,
-	// eslint-disable-next-line import-x/no-unresolved
 } from "@/modules/order/constants";
 import { useSearchParams } from "@/modules/shared/hooks/use-search-params";
 

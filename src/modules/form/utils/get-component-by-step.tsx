@@ -28,11 +28,9 @@ const LazyStepThree = dynamic(
 );
 
 export const getComponentByStep = (
-	formStep: FormOptions["currentStep"] | undefined,
+	formStep: FormOptions["currentStep"] = "1",
 ): JSX.Element => {
-	const step = formStep ?? "1";
-
-	switch (step) {
+	switch (formStep) {
 		case "1": {
 			return <FormStepOne />;
 		}
@@ -43,7 +41,7 @@ export const getComponentByStep = (
 			return <LazyStepThree />;
 		}
 		default: {
-			const _exhaustiveCheck: never = step;
+			const _exhaustiveCheck: never = formStep;
 			throw new Error(`Unhandled step: ${_exhaustiveCheck}`);
 		}
 	}

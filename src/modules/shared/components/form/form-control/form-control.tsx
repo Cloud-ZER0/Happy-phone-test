@@ -1,6 +1,5 @@
 "use client";
 
-// eslint-disable-next-line import-x/no-unresolved
 import { ErrorMessage } from "@hookform/error-message";
 import { clsx } from "clsx";
 import { useFormContext, useFormState } from "react-hook-form";

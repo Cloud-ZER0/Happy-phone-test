@@ -7,10 +7,10 @@ interface Params {
 	params: { id: string };
 }
 
-export const OrderPage = async ({ params }: Params) => {
+export const OrderPage = ({ params }: Params) => {
 	const { id } = params;
 	return (
-		<main className="w-full min-h-dvh flex justify-center items-center p-6">
+		<main className="w-full min-h-dvh flex justify-center items-center p-6 ">
 			<RemoveOrderModalProvider>
 				<OrderPageContent id={id} />
 			</RemoveOrderModalProvider>

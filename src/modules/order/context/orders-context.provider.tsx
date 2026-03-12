@@ -17,7 +17,6 @@ import {
 	CITY_SEARCH_PARAMS_KEY,
 	FILTER_PARAMS_KEY,
 	NAME_SEARCH_PARAMS_KEY,
-	// eslint-disable-next-line import-x/no-unresolved
 } from "../constants";
 import { type OrderType } from "../types";
 import { getSearchMatch } from "../utils/get-search-match";

@@ -1,6 +1,5 @@
-import { FirtStepFormOptions } from "./schemas/form-first-step.schema";
-import { SecondStepFormOptions } from "./schemas/form-second-step.schema";
-
+import type { FirtStepFormOptions } from "./schemas/form-first-step.schema";
+import type { SecondStepFormOptions } from "./schemas/form-second-step.schema";
 
 export { type CargoType } from "./schemas/form-second-step.schema";
 export { type SecondStepFormOptions } from "./schemas/form-second-step.schema";
